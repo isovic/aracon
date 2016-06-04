@@ -1,0 +1,9 @@
+[submodule "components/miniasm"]
+	path = components/miniasm
+	url = https://github.com/lh3/miniasm.git
+[submodule "components/graphmap"]
+	path = components/graphmap
+	url = https://github.com/isovic/graphmap.git
+[submodule "components/racon"]
+	path = components/racon
+	url = https://github.com/isovic/racon.git
