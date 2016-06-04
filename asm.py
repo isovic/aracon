@@ -12,6 +12,15 @@ import copy;
 
 DRY_RUN = False;
 
+MINIASM_BIN = '%s/components/miniasm/miniasm' % (SCRIPT_PATH);
+GRAPHMAP_BIN = '%s/components/graphmap/bin/graphmap-not_release' % (SCRIPT_PATH);
+SAMSCRIPTS_PATH = '%s/components/racon/codebase/samscripts' % (SCRIPT_PATH);
+MINIMAP_PATH = '%s/components/racon/tools/minimap/minimap' % (SCRIPT_PATH);
+RACON_BIN = '%s/components/racon/bin/racon' % (SCRIPT_PATH);
+PAF2MHAP_BIN = '%s/components/racon/scripts/paf2mhap.pl' % (SCRIPT_PATH);
+
+
+
 import traceback;
 from time import gmtime, strftime
 ### Logs messages to STDERR and an output log file if provided (opened elsewhere).
@@ -108,22 +117,22 @@ def main():
 
 	commands = [];
 
-	commands.append('components/graphmap/bin/graphmap-not_release owler -t %d -r %s -d %s -L paf -o %s' % (num_threads, reads_fastq, reads_fastq, overlaps_paf));
+	commands.append('%s owler -t %d -r %s -d %s -L paf -o %s' % (GRAPHMAP_BIN, num_threads, reads_fastq, reads_fastq, overlaps_paf));
 	# commands.append('components/racon/tools/minimap/minimap -Sw5 -L100 -m0 -t %d %s %s > %s' % (num_threads, reads_fastq, reads_fastq, overlaps_paf));	
 
 	# commands.append('components/miniasm/miniasm -i 0.0 -m 500 -s 100 -I 0.3 -f %s %s > %s' % (reads_fastq, overlaps_paf, assembly_raw_gfa));
-	commands.append('components/miniasm/miniasm -f %s %s > %s' % (reads_fastq, overlaps_paf, assembly_raw_gfa));
+	commands.append('%s -f %s %s > %s' % (MINIASM_BIN, reads_fastq, overlaps_paf, assembly_raw_gfa));
 	commands.append("awk '$1 ~/S/ {print \">\"$2\"\\n\"$3}' %s > %s" % (assembly_raw_gfa, assembly_iter0_fasta));
 
-	commands.append('components/racon/codebase/samscripts/src/fastqfilter.py fastq2fasta %s > %s' % (reads_fastq, reads_fasta));	
+	commands.append('%s/src/fastqfilter.py fastq2fasta %s > %s' % (SAMSCRIPTS_PATH, reads_fastq, reads_fasta));	
 
-	commands.append('components/racon/tools/minimap/minimap %s %s > %s' % (assembly_iter0_fasta, reads_fasta, mapping_iter1_paf));	
-	commands.append('components/racon/scripts/paf2mhap.pl %s %s %s > %s' % (assembly_iter0_fasta, reads_fasta, mapping_iter1_paf, mapping_iter1_mhap));
-	commands.append('components/racon/bin/racon -M 5 -X -4 -G -8 -E -6 --bq 10 -t %d --mhap --reads %s %s %s %s' % (num_threads, reads_fastq, assembly_iter0_fasta, mapping_iter1_mhap, assembly_iter1_fasta))
+	commands.append('%s %s %s > %s' % (MINIMAP_PATH, assembly_iter0_fasta, reads_fasta, mapping_iter1_paf));	
+	commands.append('%s %s %s %s > %s' % (PAF2MHAP_BIN, assembly_iter0_fasta, reads_fasta, mapping_iter1_paf, mapping_iter1_mhap));
+	commands.append('%s -M 5 -X -4 -G -8 -E -6 --bq 10 -t %d --mhap --reads %s %s %s %s' % (RACON_BIN, num_threads, reads_fastq, assembly_iter0_fasta, mapping_iter1_mhap, assembly_iter1_fasta))
 
-	commands.append('components/racon/tools/minimap/minimap %s %s > %s' % (assembly_iter1_fasta, reads_fasta, mapping_iter2_paf));	
-	commands.append('components/racon/scripts/paf2mhap.pl %s %s %s > %s' % (assembly_iter1_fasta, reads_fasta, mapping_iter2_paf, mapping_iter2_mhap));
-	commands.append('components/racon/bin/racon -M 5 -X -4 -G -8 -E -6 --bq 10 -t %d --mhap --reads %s %s %s %s' % (num_threads, reads_fastq, assembly_iter1_fasta, mapping_iter2_mhap, assembly_iter2_fasta))
+	commands.append('%s %s %s > %s' % (MINIMAP_PATH, assembly_iter1_fasta, reads_fasta, mapping_iter2_paf));	
+	commands.append('%s %s %s %s > %s' % (PAF2MHAP_BIN, assembly_iter1_fasta, reads_fasta, mapping_iter2_paf, mapping_iter2_mhap));
+	commands.append('%s -M 5 -X -4 -G -8 -E -6 --bq 10 -t %d --mhap --reads %s %s %s %s' % (RACON_BIN, num_threads, reads_fastq, assembly_iter1_fasta, mapping_iter2_mhap, assembly_iter2_fasta))
 
 	for command in commands:
 		execute_command(command, fp_log, dry_run=False);
