@@ -5,3 +5,4 @@ test-data/*
 test-data/lambda/*
 !test-data/lambda/reads.fastq
 !test-data/lambda/NC_001416.fa
+*.log

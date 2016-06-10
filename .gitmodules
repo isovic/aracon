@@ -7,3 +7,6 @@
 [submodule "components/racon"]
 	path = components/racon
 	url = https://github.com/isovic/racon.git
+[submodule "components/samscripts"]
+	path = components/samscripts
+	url = https://github.com/isovic/samscripts.git
