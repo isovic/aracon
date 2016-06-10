@@ -4,16 +4,16 @@ This is an integrative project of a de novo assembler capable of assemblin raw n
 The results after consensus are comparable or better than those obtained with full-blown pipelines utilizing both error-correction and consensus.  
 
 Components integrated into Aracon:  
-1. GraphMap owler - for read overlapping.
-2. Miniasm layout - for now we utilize Miniasm's layout module just in the proof-of-concept stage. Later layout will be implemented.
-3. Racon - for a rapid consensus of the raw contigs.
+1. GraphMap owler - for read overlapping.  
+2. Miniasm layout - for now we utilize Miniasm's layout module just in the proof-of-concept stage. Later layout will be implemented.  
+3. Racon - for a rapid consensus of the raw contigs.  
 
 Although intended for assembling reads without error correction, there is an option ```--erc``` in Aracon which allows utilization of the error-correction step.  
 When using error correction, the pipeline is modified as follows:  
-1. Racon on raw reads - to produce error-corrected reads.
-2. GraphMap owler - for read overlapping.
-3. Miniasm layout - for now we utilize Miniasm's layout module just in the proof-of-concept stage. Later layout will be implemented.
-4. Racon - for a rapid consensus of the contigs.
+1. Racon on raw reads - to produce error-corrected reads.  
+2. GraphMap owler - for read overlapping.  
+3. Miniasm layout - for now we utilize Miniasm's layout module just in the proof-of-concept stage. Later layout will be implemented.  
+4. Racon - for a rapid consensus of the contigs.  
 
 ## Installation
 Type:  
