@@ -29,5 +29,5 @@ To run Aracon on raw noisy reads:
 ```  
 Aracon also has an error-correction option, to use it add the ```--erc``` option at the end:  
 ```  
-./aracon test-data/lambda/reads.fastq results/example1-lambda/ --num-threads 4 --erc
+./aracon test-data/lambda/reads.fastq results/example2-lambda-erc/ --num-threads 4 --erc
 ```  
