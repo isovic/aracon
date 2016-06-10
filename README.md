@@ -1,4 +1,4 @@
-# Aracon - Assembly with Rapic Consensus
+# Aracon - Assembly with Rapid Consensus
 
 This is an integrative project of a de novo assembler capable of assemblin raw noisy long reads, and correcting errors at the end of the process, in the consensus phase.  
 The results after consensus are comparable or better than those obtained with full-blown pipelines utilizing both error-correction and consensus.  
