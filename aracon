@@ -114,7 +114,7 @@ def main():
 		exit(1);
 
 	input_reads_fastq = '%s/reads.input.fastq' % (working_folder);
-	input_reads_fasta = '%s/reads.input.fasta' % (working_folder);
+	# input_reads_fasta = '%s/reads.input.fasta' % (working_folder);
 	reads_fastq_for_overlap_fastq = '%s/reads.forovl.fastq' % (working_folder);
 	reads_fasta_for_overlap_fasta = '%s/reads.forovl.fasta' % (working_folder);
 	overlaps_erc_mhap = '%s/erc.overlaps.mhap' % (working_folder);
@@ -134,18 +134,18 @@ def main():
 	commands = [];
 
 	commands.append('cp %s %s' % (reads_fastq, input_reads_fastq));
-	commands.append('%s/src/fastqfilter.py fastq2fasta2 %s > %s' % (SAMSCRIPTS_PATH, input_reads_fastq, input_reads_fasta));	
+	# commands.append('%s/src/fastqfilter.py fastq2fasta2 %s > %s' % (SAMSCRIPTS_PATH, input_reads_fastq, input_reads_fasta));	
 
 	# Either use error correction, or just create a symbolic link to the input_reads_fastq.
 	if (use_erc == True):
 		# Run the first iteration of Racon.
 		commands.append('%s -Sw5 -L100 -m0 -t%d %s %s > %s' % (MINIMAP_PATH, num_threads, input_reads_fastq, input_reads_fastq, overlaps_erc_paf));	
-		commands.append('%s %s %s > %s' % (MINIASM_PAF2MHAP, input_reads_fasta, overlaps_erc_paf, overlaps_erc_mhap));
-		commands.append('%s -M 5 -X -4 -G -8 -E -6 --bq 10 -t %d --erc %s %s %s %s' % (RACON_BIN, num_threads, input_reads_fastq, overlaps_erc_mhap, input_reads_fastq, reads_fasta_for_overlap_fasta))
+		# commands.append('%s %s %s > %s' % (MINIASM_PAF2MHAP, input_reads_fasta, overlaps_erc_paf, overlaps_erc_mhap));
+		commands.append('%s -M 5 -X -4 -G -8 -E -6 --bq 10 -t %d --erc %s %s %s %s' % (RACON_BIN, num_threads, input_reads_fastq, overlaps_erc_paf, input_reads_fastq, reads_fasta_for_overlap_fasta))
 		commands.append('%s/src/fastqfilter.py adddummyqv 15 %s > %s' % (SAMSCRIPTS_PATH, reads_fasta_for_overlap_fasta, reads_fastq_for_overlap_fastq));
 	else:
 		commands.append('ln -s %s %s' % (input_reads_fastq, reads_fastq_for_overlap_fastq));
-		commands.append('ln -s %s %s' % (input_reads_fasta, reads_fasta_for_overlap_fasta));
+		# commands.append('ln -s %s %s' % (input_reads_fasta, reads_fasta_for_overlap_fasta));
 
 	# Find overlaps amongst reads.
 	commands.append('%s owler -B 0 -t %d -r %s -d %s -L paf -o %s' % (GRAPHMAP_BIN, num_threads, reads_fastq_for_overlap_fastq, reads_fastq_for_overlap_fastq, overlaps_paf));
