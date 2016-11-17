@@ -156,12 +156,12 @@ def main():
 	commands.append("awk '$1 ~/S/ {print \">\"$2\"\\n\"$3}' %s > %s" % (assembly_raw_gfa, assembly_iter0_fasta));
 
 	# Run the first iteration of Racon.
-	commands.append('%s %s %s > %s' % (MINIMAP_PATH, assembly_iter0_fasta, reads_fasta_for_overlap_fasta, mapping_iter1_paf));	
+	commands.append('%s %s %s > %s' % (MINIMAP_PATH, assembly_iter0_fasta, reads_fastq_for_overlap_fastq, mapping_iter1_paf));	
 	# commands.append('%s %s %s %s > %s' % (PAF2MHAP_BIN, assembly_iter0_fasta, reads_fasta_for_overlap_fasta, mapping_iter1_paf, mapping_iter1_mhap));
 	commands.append('%s -M 5 -X -4 -G -8 -E -6 --bq 10 -t %d %s %s %s %s' % (RACON_BIN, num_threads, reads_fastq_for_overlap_fastq, mapping_iter1_paf, assembly_iter0_fasta, assembly_iter1_fasta))
 
 	# Run the second iteration of Racon.
-	commands.append('%s %s %s > %s' % (MINIMAP_PATH, assembly_iter1_fasta, reads_fasta_for_overlap_fasta, mapping_iter2_paf));	
+	commands.append('%s %s %s > %s' % (MINIMAP_PATH, assembly_iter1_fasta, reads_fastq_for_overlap_fastq, mapping_iter2_paf));	
 	# commands.append('%s %s %s %s > %s' % (PAF2MHAP_BIN, assembly_iter1_fasta, reads_fasta_for_overlap_fasta, mapping_iter2_paf, mapping_iter2_mhap));
 	commands.append('%s -M 5 -X -4 -G -8 -E -6 --bq 10 -t %d %s %s %s %s' % (RACON_BIN, num_threads, reads_fastq_for_overlap_fastq, mapping_iter2_paf, assembly_iter1_fasta, assembly_iter2_fasta))
 
