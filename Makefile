@@ -23,4 +23,5 @@ components/miniasm/miniasm:
 
 components/racon/bin/racon:
 	@echo [Racon] $@
-	@cd components/racon; git checkout b5b65d7a593a640858a8f7b8c7659a2367fb7eab; make modules && make tools && make -j 4
+	@cd components/racon; make modules && make tools && make -j 4
+#	@cd components/racon; git checkout b5b65d7a593a640858a8f7b8c7659a2367fb7eab; make modules && make tools && make -j 4
