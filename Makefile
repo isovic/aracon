@@ -3,7 +3,7 @@ all: getmodules makemodules
 getmodules:
 	@echo "[GET MODULES] "
 	@git submodule update --init --recursive
-	@git submodule foreach git pull origin master
+#	@git submodule foreach git pull origin master
 
 # makemodules: components/graphmap/bin/Linux-x64/graphmap components/graphmap/bin/graphmap-not_release components/miniasm/miniasm components/racon/bin/racon
 makemodules: components/graphmap/bin/Linux-x64/graphmap components/graphmap/bin/graphmap-not_release components/miniasm/miniasm components/racon/bin/racon

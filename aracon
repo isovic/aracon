@@ -148,7 +148,7 @@ def main():
 		# commands.append('ln -s %s %s' % (input_reads_fasta, reads_fasta_for_overlap_fasta));
 
 	# Find overlaps amongst reads.
-	commands.append('%s owler -B 0 -t %d -r %s -d %s -L paf -o %s' % (GRAPHMAP_BIN, num_threads, reads_fastq_for_overlap_fastq, reads_fastq_for_overlap_fastq, overlaps_paf));
+	commands.append('%s owler -t %d -r %s -d %s -L paf -o %s' % (GRAPHMAP_BIN, num_threads, reads_fastq_for_overlap_fastq, reads_fastq_for_overlap_fastq, overlaps_paf));
 	# commands.append('components/racon/tools/minimap/minimap -Sw5 -L100 -m0 -t %d %s %s > %s' % (num_threads, reads_fastq, reads_fastq, overlaps_paf));	
 
 	# Run assembly on the overlaps.
